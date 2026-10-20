@@ -1,0 +1,8 @@
+target/
+target-2.5/
+target-2.6/
+.env
+*.env
+__pycache__/
+.pytest_cache/
+tests/out/test-run.log

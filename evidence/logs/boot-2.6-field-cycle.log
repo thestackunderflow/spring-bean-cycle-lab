@@ -1,0 +1,39 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.6.15)
+
+2026-10-19 12:02:58.404  INFO 149 --- [           main] lab.CycleLab                             : Starting CycleLab v1.0 using Java 17.0.20.1 on 57a6467740b1 with PID 149 (/lab/target-2.6/spring-bean-cycle-lab-1.0.jar started by root in /lab)
+2026-10-19 12:02:58.408  INFO 149 --- [           main] lab.CycleLab                             : No active profile set, falling back to 1 default profile: "default"
+LAB: creating OrderService
+LAB: creating PaymentService
+2026-10-19 12:02:58.936  WARN 149 --- [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'orderService': Unsatisfied dependency expressed through field 'payment'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'paymentService': Unsatisfied dependency expressed through field 'orders'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'orderService': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2026-10-19 12:02:58.942  INFO 149 --- [           main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-10-19 12:02:58.976 ERROR 149 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  orderService (field private lab.fieldcycle.PaymentService lab.fieldcycle.OrderService.payment)
+↑     ↓
+|  paymentService (field private lab.fieldcycle.OrderService lab.fieldcycle.PaymentService.orders)
+└─────┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+exit code: 1

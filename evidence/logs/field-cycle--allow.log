@@ -1,0 +1,17 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-19T12:02:36.417Z  INFO 476 --- [           main] lab.CycleLab                             : Starting CycleLab v1.0 using Java 21.0.12.1 with PID 476 (/lab/target/spring-bean-cycle-lab-1.0.jar started by root in /lab)
+2026-10-19T12:02:36.421Z  INFO 476 --- [           main] lab.CycleLab                             : No active profile set, falling back to 1 default profile: "default"
+LAB: creating OrderService
+LAB: creating PaymentService
+2026-10-19T12:02:36.849Z  INFO 476 --- [           main] lab.CycleLab                             : Started CycleLab in 0.835 seconds (process running for 1.269)
+LAB: started. order 42: PAID
+exit code: 0
