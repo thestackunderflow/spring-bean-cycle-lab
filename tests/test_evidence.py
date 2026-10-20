@@ -5,7 +5,9 @@ import glob, json, os, re, unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOGS = os.path.join(HERE, '..', 'evidence', 'logs')
-PRIMERS = os.path.join(HERE, '..', '..', 'Refream-Canvas', 'mcp-canvas', 'primers')
+# The video's script (its "primer") is not part of this repo. Point SBC_PRIMER at a copy to run the panel check;
+# without it that one test is skipped.
+PRIMER = os.environ.get('SBC_PRIMER', '')
 HEADLINE = 'The dependencies of some of the beans in the application context form a cycle:'
 
 
@@ -89,12 +91,13 @@ class PanelsCopiedFromLogs(unittest.TestCase):
     """Every terminal-panel line in the video's primer is in a real log. '…' marks a cut: each piece must appear, in
     order, on one log line. Lines starting with '$ ' (a command) or '# ' (a note) are exempt."""
 
+    @unittest.skipUnless(os.path.isfile(PRIMER), 'video primer not present (set SBC_PRIMER to check it)')
     def test_terminal_lines_are_real(self):
         logs = []
         for f in glob.glob(os.path.join(LOGS, '*.log')):
             with open(f, encoding='utf8') as fh:
                 logs += fh.read().splitlines()
-        with open(os.path.join(PRIMERS, 'spring-bean-cycle.primer.json'), encoding='utf8') as fh:
+        with open(PRIMER, encoding='utf8') as fh:
             primer = json.load(fh)
         checked = 0
         for c in primer['chapters']:

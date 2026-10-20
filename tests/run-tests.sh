@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs the JUnit tests in Docker (Maven + JDK 21). Maven's downloads are cached in a named volume.
+# Runs the JUnit tests (Maven + JDK 21) and the evidence checks (Python), both in Docker. Maven's downloads are cached in a named volume.
 # Usage: bash tests/run-tests.sh [log-file]
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -10,4 +10,5 @@ MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd -W 2>/dev/null || pwd):/lab" -v spr
 # -q hides Maven's summary: take the counts from the Surefire report
 grep -o 'tests="[0-9]*" errors="[0-9]*" skipped="[0-9]*" failures="[0-9]*"' target/surefire-reports/TEST-lab.CycleLabTest.xml \
   | sed 's/^/JUnit summary: /' | tee -a "$LOG"
-python -m unittest discover -s tests -p "test_evidence.py" 2>&1 | tail -3 | tee -a "$LOG"
+# the evidence checks, in Docker too (pass SBC_PRIMER=/lab/<path> inside the container to include the video-panel check)
+MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd -W 2>/dev/null || pwd):/lab" -w /lab ${SBC_PRIMER:+-e SBC_PRIMER="$SBC_PRIMER"}   python:3.12-slim python -B -m unittest discover -s tests -p "test_evidence.py" 2>&1 | tail -3 | tee -a "$LOG"
