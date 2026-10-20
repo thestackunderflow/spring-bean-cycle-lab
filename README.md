@@ -1,6 +1,6 @@
 # Spring Boot "beans ... form a cycle": a lab
 
-**Lab snapshot: 19 Oct 2026.** Companion lab for The Stack Underflow's video on this error (video coming 30 Oct). Spring Boot **4.1.1** on Java 21, plus the same code on **2.5.15** and **2.6.15** (Java 17)
+**Lab snapshot: 19 Oct 2026.** Companion lab for The Stack Underflow's video on this error (video: https://youtu.be/t61wIp8eEXc). Spring Boot **4.1.1** on Java 21, plus the same code on **2.5.15** and **2.6.15** (Java 17)
 to show the 2.6 change. Everything runs in Docker (Maven images); nothing is installed on the host.
 
 One tiny shop app: `OrderService` needs `PaymentService` to charge, and `PaymentService` needs `OrderService` to mark
